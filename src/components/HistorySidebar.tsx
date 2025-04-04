@@ -1,6 +1,6 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Clock, YouTube, Trash2 } from 'lucide-react';
+import { X, Clock, Youtube, Trash2 } from 'lucide-react';
 
 interface HistoryItem {
   id: string;
@@ -73,7 +73,7 @@ const HistorySidebar = ({ isOpen, onClose, history, onVideoSelect }: HistorySide
                         onClick={() => onVideoSelect(item.id)}
                       >
                         <div className="shrink-0 w-10 h-10 rounded bg-gray-100 flex items-center justify-center">
-                          <YouTube size={16} className="text-youlearn-blue" />
+                          <Youtube size={16} className="text-youlearn-blue" />
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="font-medium text-sm truncate">{item.title}</p>

@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Book, History, MessageSquare, Search, YouTube } from 'lucide-react';
+import { Book, History, MessageSquare, Search, Youtube } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -78,7 +78,7 @@ const Dashboard = () => {
           >
             <form onSubmit={handleVideoSubmit} className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
-                <YouTube className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
+                <Youtube className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
                 <Input
                   type="text"
                   placeholder="Paste YouTube video URL here..."
@@ -113,14 +113,14 @@ const Dashboard = () => {
               className="max-w-2xl mx-auto text-center mt-16"
             >
               <div className="text-youlearn-gray text-lg mb-8">
-                <YouTube size={48} className="mx-auto mb-6 text-youlearn-blue opacity-50" />
+                <Youtube size={48} className="mx-auto mb-6 text-youlearn-blue opacity-50" />
                 <h2 className="text-2xl md:text-3xl font-medium mb-3 text-youlearn-dark">Start learning with YouLearn</h2>
                 <p>Paste any YouTube video URL above to get summaries, key points, and more.</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mt-12">
                 <div className="p-6 rounded-lg border border-border">
-                  <YouTube className="mx-auto mb-4 text-youlearn-blue" size={24} />
+                  <Youtube className="mx-auto mb-4 text-youlearn-blue" size={24} />
                   <h3 className="font-medium mb-2">Watch Videos</h3>
                   <p className="text-sm text-youlearn-gray">Paste any YouTube URL to start learning</p>
                 </div>
