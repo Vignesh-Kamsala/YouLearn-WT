@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -41,9 +42,11 @@ const Header = () => {
             <Button variant="outline" size="sm" className="font-medium">
               Log In
             </Button>
-            <Button size="sm" className="font-medium bg-youlearn-blue hover:bg-youlearn-lightBlue">
-              Sign Up
-            </Button>
+            <Link to="/dashboard">
+              <Button size="sm" className="font-medium bg-youlearn-blue hover:bg-youlearn-lightBlue">
+                Try Now
+              </Button>
+            </Link>
           </div>
         </nav>
 
@@ -66,7 +69,7 @@ const Header = () => {
           <div className="container max-w-7xl mx-auto py-4 px-4 flex flex-col space-y-3">
             <a href="#" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Home</a>
             <a href="#features" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Features</a>
-            <a href="#signup" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Sign Up</a>
+            <Link to="/dashboard" className="px-4 py-2 rounded bg-youlearn-blue text-white font-medium">Try Now</Link>
             <a href="#login" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Log In</a>
           </div>
         </div>

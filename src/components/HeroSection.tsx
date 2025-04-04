@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -87,9 +88,11 @@ const HeroSection = () => {
           
           <motion.div variants={itemVariants}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-youlearn-blue hover:bg-youlearn-lightBlue text-white shadow-md px-6 py-6 rounded-xl w-full sm:w-auto">
-                Get Started <ArrowRight size={16} className="ml-2" />
-              </Button>
+              <Link to="/dashboard">
+                <Button size="lg" className="bg-youlearn-blue hover:bg-youlearn-lightBlue text-white shadow-md px-6 py-6 rounded-xl w-full sm:w-auto">
+                  Get Started <ArrowRight size={16} className="ml-2" />
+                </Button>
+              </Link>
               <Button variant="outline" size="lg" className="px-6 py-6 rounded-xl w-full sm:w-auto">
                 <Youtube size={16} className="mr-2" /> Browse Examples
               </Button>
