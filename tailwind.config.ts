@@ -133,6 +133,9 @@ export default {
         'subtle': '0 2px 10px rgba(0, 0, 0, 0.05)',
         'elevation': '0 8px 30px rgba(0, 0, 0, 0.12)',
         'card': '0px 20px 25px -5px rgba(0, 0, 0, 0.05), 0px 10px 10px -5px rgba(0, 0, 0, 0.02)',
+        'dark-subtle': '0 2px 10px rgba(0, 0, 0, 0.2)',
+        'dark-elevation': '0 8px 30px rgba(0, 0, 0, 0.25)',
+        'dark-card': '0px 20px 25px -5px rgba(0, 0, 0, 0.2), 0px 10px 10px -5px rgba(0, 0, 0, 0.1)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
