@@ -10,6 +10,7 @@ import Chatbot from '@/components/Chatbot';
 import HistorySidebar from '@/components/HistorySidebar';
 import DashboardHeader from '@/components/DashboardHeader';
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [videoUrl, setVideoUrl] = useState('');
@@ -69,10 +70,21 @@ const Dashboard = () => {
     localStorage.removeItem('videoHistory');
   };
 
+  const handleDeleteHistoryItem = (id: string) => {
+    const updatedHistory = videoHistory.filter(item => item.id !== id);
+    setVideoHistory(updatedHistory);
+    localStorage.setItem('videoHistory', JSON.stringify(updatedHistory));
+  };
+
   // Load history from localStorage on initial render
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('videoHistory') || '[]');
-    setVideoHistory(history);
+    // Convert string dates back to Date objects
+    const historyWithDates = history.map((item: any) => ({
+      ...item,
+      timestamp: new Date(item.timestamp)
+    }));
+    setVideoHistory(historyWithDates);
   }, []);
 
   return (
@@ -91,6 +103,7 @@ const Dashboard = () => {
             toast.info('Video loaded from history');
           }}
           onClearHistory={handleClearHistory}
+          onDeleteHistoryItem={handleDeleteHistoryItem}
         />
         
         <div className="flex-1 p-4 md:p-6 lg:p-8">
@@ -178,14 +191,16 @@ const Dashboard = () => {
                     <h3 className="font-medium mb-2 dark:text-white">Get Summaries</h3>
                     <p className="text-sm text-youlearn-gray dark:text-gray-400">AI-generated summaries of any video</p>
                   </motion.div>
-                  <motion.div 
-                    className="p-6 rounded-lg border border-border dark:border-gray-800 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <MessageSquare className="mx-auto mb-4 text-youlearn-blue" size={24} />
-                    <h3 className="font-medium mb-2 dark:text-white">Ask Questions</h3>
-                    <p className="text-sm text-youlearn-gray dark:text-gray-400">Chat with our AI about the video content</p>
-                  </motion.div>
+                  <Link to="/notes" className="block">
+                    <motion.div 
+                      className="p-6 rounded-lg border border-border dark:border-gray-800 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <MessageSquare className="mx-auto mb-4 text-youlearn-blue" size={24} />
+                      <h3 className="font-medium mb-2 dark:text-white">Take Notes</h3>
+                      <p className="text-sm text-youlearn-gray dark:text-gray-400">Store your own notes while learning</p>
+                    </motion.div>
+                  </Link>
                 </div>
               </motion.div>
             )}

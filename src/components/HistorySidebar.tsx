@@ -16,9 +16,17 @@ interface HistorySidebarProps {
   history: HistoryItem[];
   onVideoSelect: (videoId: string) => void;
   onClearHistory: () => void;
+  onDeleteHistoryItem?: (id: string) => void;
 }
 
-const HistorySidebar = ({ isOpen, onClose, history, onVideoSelect, onClearHistory }: HistorySidebarProps) => {
+const HistorySidebar = ({ 
+  isOpen, 
+  onClose, 
+  history, 
+  onVideoSelect, 
+  onClearHistory,
+  onDeleteHistoryItem 
+}: HistorySidebarProps) => {
   const [isClearing, setIsClearing] = useState(false);
   
   const formatDate = (date: Date) => {
@@ -37,6 +45,14 @@ const HistorySidebar = ({ isOpen, onClose, history, onVideoSelect, onClearHistor
       setIsClearing(false);
       toast.success('Watch history cleared');
     }, 500);
+  };
+
+  const handleDeleteItem = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the video selection
+    if (onDeleteHistoryItem) {
+      onDeleteHistoryItem(id);
+      toast.success('Item removed from history');
+    }
   };
   
   return (
@@ -97,7 +113,7 @@ const HistorySidebar = ({ isOpen, onClose, history, onVideoSelect, onClearHistor
                   {history.map((item) => (
                     <motion.li 
                       key={item.id} 
-                      className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors relative group"
                       variants={{
                         hidden: { opacity: 0, x: -20 },
                         visible: { opacity: 1, x: 0 }
@@ -117,6 +133,15 @@ const HistorySidebar = ({ isOpen, onClose, history, onVideoSelect, onClearHistor
                           </span>
                         </div>
                       </button>
+                      {onDeleteHistoryItem && (
+                        <button 
+                          onClick={(e) => handleDeleteItem(item.id, e)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-200 dark:hover:bg-gray-700"
+                          aria-label="Delete history item"
+                        >
+                          <Trash2 size={14} className="text-gray-500 dark:text-gray-400" />
+                        </button>
+                      )}
                     </motion.li>
                   ))}
                 </motion.ul>
