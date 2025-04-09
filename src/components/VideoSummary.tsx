@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, CheckCircle, List, Download, Share2, Sparkles, Clipboard } from 'lucide-react';
@@ -10,20 +9,92 @@ interface VideoSummaryProps {
   videoId: string;
 }
 
+interface SummaryData {
+  title: string;
+  summary: string;
+  keyPoints: string[];
+  transcript: string;
+}
+
 const VideoSummary = ({ videoId }: VideoSummaryProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
-  
-  // In a real app, you would fetch this data from an API
+  const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    // Simulate API call
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    
-    return () => clearTimeout(timer);
+    const fetchVideoSummary = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Step 1: Get transcript from backend
+        const transcriptResponse = await fetch('http://localhost:3000/getTranscript', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            videoUrl: `https://www.youtube.com/watch?v=${videoId}` 
+          }),
+        });
+
+        if (!transcriptResponse.ok) {
+          throw new Error('Failed to fetch transcript');
+        }
+
+        const transcriptResult = await transcriptResponse.json();
+        
+        if (!transcriptResult.success) {
+          throw new Error(transcriptResult.message || 'Transcript error');
+        }
+
+        // Step 2: Get summary from backend using the transcript
+        const summaryResponse = await fetch('http://localhost:3000/getSummary', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            transcript: transcriptResult.transcript 
+          }),
+        });
+
+        if (!summaryResponse.ok) {
+          throw new Error('Failed to fetch summary');
+        }
+
+        const summaryResult = await summaryResponse.json();
+
+        // Step 3: Structure the data for the frontend
+        setSummaryData({
+          title: `Video Summary for ${videoId}`,
+          summary: summaryResult.summary,
+          keyPoints: generateKeyPoints(summaryResult.summary), // Helper function
+          transcript: transcriptResult.transcript
+        });
+
+      } catch (err) {
+        console.error('Error fetching video summary:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVideoSummary();
   }, [videoId]);
+
+  // Helper function to extract key points from summary
+  const generateKeyPoints = (summary: string): string[] => {
+    // Simple implementation - split summary into sentences for key points
+    // In a real app, you might want to use a more sophisticated approach
+    return summary
+      .split('.')
+      .filter(sentence => sentence.trim().length > 0)
+      .slice(0, 5) // Take first 5 sentences
+      .map(sentence => sentence.trim() + '.');
+  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(
@@ -36,20 +107,6 @@ const VideoSummary = ({ videoId }: VideoSummaryProps) => {
         toast.error('Failed to copy');
       }
     );
-  };
-  
-  // Mock data - in a real app this would come from an API
-  const summaryData = {
-    title: "Understanding Machine Learning Basics",
-    summary: "This video covers the fundamental concepts of machine learning, including supervised and unsupervised learning, algorithms, and practical applications. The speaker explains how machine learning systems learn from data and make predictions or decisions without being explicitly programmed to do so.",
-    keyPoints: [
-      "Machine learning is a subset of artificial intelligence",
-      "Supervised learning uses labeled data for training",
-      "Unsupervised learning finds patterns in unlabeled data",
-      "Deep learning uses neural networks with multiple layers",
-      "Data quality is critical for effective machine learning"
-    ],
-    transcript: "Today we're going to talk about machine learning. Machine learning is a subset of artificial intelligence that focuses on developing systems that learn from data. Unlike traditional programming where you explicitly code rules, machine learning algorithms build models based on sample data to make predictions or decisions without being explicitly programmed to do so..."
   };
 
   if (isLoading) {
@@ -68,7 +125,26 @@ const VideoSummary = ({ videoId }: VideoSummaryProps) => {
       </div>
     );
   }
-  
+
+  if (error) {
+    return (
+      <div className="glass-card p-6 dark:bg-gray-900 dark:border-gray-800">
+        <div className="text-red-500">{error}</div>
+        <Button 
+          onClick={() => window.location.reload()} 
+          className="mt-4"
+          variant="outline"
+        >
+          Retry
+        </Button>
+      </div>
+    );
+  }
+
+  if (!summaryData) {
+    return null;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -100,9 +176,13 @@ const VideoSummary = ({ videoId }: VideoSummaryProps) => {
         </TabsList>
         
         <TabsContent value="summary" className="pt-2">
-          <h3 className="text-xl font-semibold mb-3 text-youlearn-dark dark:text-white">{summaryData.title}</h3>
+          <h3 className="text-xl font-semibold mb-3 text-youlearn-dark dark:text-white">
+            {summaryData.title}
+          </h3>
           <div className="relative">
-            <p className="text-youlearn-gray dark:text-gray-300 leading-relaxed">{summaryData.summary}</p>
+            <p className="text-youlearn-gray dark:text-gray-300 leading-relaxed">
+              {summaryData.summary}
+            </p>
             <button 
               onClick={() => copyToClipboard(summaryData.summary)}
               className="absolute right-0 top-0 p-1.5 text-gray-400 hover:text-youlearn-blue rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -114,7 +194,9 @@ const VideoSummary = ({ videoId }: VideoSummaryProps) => {
         </TabsContent>
         
         <TabsContent value="key-points" className="pt-2">
-          <h3 className="text-xl font-semibold mb-3 text-youlearn-dark dark:text-white">Key Takeaways</h3>
+          <h3 className="text-xl font-semibold mb-3 text-youlearn-dark dark:text-white">
+            Key Takeaways
+          </h3>
           <ul className="space-y-2">
             {summaryData.keyPoints.map((point, index) => (
               <motion.li 
@@ -132,7 +214,9 @@ const VideoSummary = ({ videoId }: VideoSummaryProps) => {
         </TabsContent>
         
         <TabsContent value="transcript" className="pt-2">
-          <h3 className="text-xl font-semibold mb-3 text-youlearn-dark dark:text-white">Full Transcript</h3>
+          <h3 className="text-xl font-semibold mb-3 text-youlearn-dark dark:text-white">
+            Full Transcript
+          </h3>
           <div className="max-h-64 overflow-y-auto pr-2 text-youlearn-gray dark:text-gray-300 leading-relaxed">
             <p>{summaryData.transcript}</p>
           </div>
