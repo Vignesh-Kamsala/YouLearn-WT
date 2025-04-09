@@ -39,12 +39,14 @@ const Header = () => {
           <NavLink href="#" isActive>Home</NavLink>
           <NavLink href="#features">Features</NavLink>
           <div className="ml-4 flex items-center space-x-3">
-            <Button variant="outline" size="sm" className="font-medium">
-              Log In
-            </Button>
-            <Link to="/dashboard">
+            <Link to="/login">
+              <Button variant="outline" size="sm" className="font-medium">
+                Log In
+              </Button>
+            </Link>
+            <Link to="/signup">
               <Button size="sm" className="font-medium bg-youlearn-blue hover:bg-youlearn-lightBlue">
-                Try Now
+                Sign Up
               </Button>
             </Link>
           </div>
@@ -69,8 +71,8 @@ const Header = () => {
           <div className="container max-w-7xl mx-auto py-4 px-4 flex flex-col space-y-3">
             <a href="#" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Home</a>
             <a href="#features" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Features</a>
-            <Link to="/dashboard" className="px-4 py-2 rounded bg-youlearn-blue text-white font-medium">Try Now</Link>
-            <a href="#login" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Log In</a>
+            <Link to="/signup" className="px-4 py-2 rounded bg-youlearn-blue text-white font-medium">Sign Up</Link>
+            <Link to="/login" className="px-4 py-2 rounded hover:bg-white/80 text-youlearn-dark font-medium">Log In</Link>
           </div>
         </div>
       )}

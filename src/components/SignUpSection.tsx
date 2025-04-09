@@ -3,16 +3,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const SignUpSection = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Sign up logic would go here
-    console.log('Sign up:', { email, password });
-  };
 
   return (
     <section id="signup" className="py-20 md:py-28 relative">
@@ -67,7 +62,10 @@ const SignUpSection = () => {
               <div className="glass-card p-8 bg-white/95">
                 <h3 className="text-xl font-semibold mb-6 text-youlearn-dark">Create your account</h3>
                 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  window.location.href = '/signup';
+                }}>
                   <div className="space-y-4">
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-youlearn-gray mb-1">
@@ -102,20 +100,22 @@ const SignUpSection = () => {
                       </div>
                     </div>
                     
-                    <Button 
-                      type="submit" 
-                      className="w-full bg-youlearn-blue hover:bg-youlearn-lightBlue text-white py-6 rounded-lg transition-all duration-300 btn-hover-animate"
-                    >
-                      Sign Up <ArrowRight size={16} className="ml-1" />
-                    </Button>
+                    <Link to="/signup">
+                      <Button 
+                        type="button" 
+                        className="w-full bg-youlearn-blue hover:bg-youlearn-lightBlue text-white py-6 rounded-lg transition-all duration-300 btn-hover-animate"
+                      >
+                        Sign Up <ArrowRight size={16} className="ml-1" />
+                      </Button>
+                    </Link>
                   </div>
                 </form>
                 
                 <div className="mt-6 text-center text-sm text-youlearn-gray">
                   Already have an account?{' '}
-                  <a href="#" className="text-youlearn-blue font-medium hover:underline focus-ring rounded">
+                  <Link to="/login" className="text-youlearn-blue font-medium hover:underline focus-ring rounded">
                     Log In
-                  </a>
+                  </Link>
                 </div>
                 
                 <div className="mt-6 pt-6 border-t border-gray-100 text-center text-xs text-youlearn-gray">
