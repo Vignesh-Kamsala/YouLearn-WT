@@ -9,6 +9,7 @@ import VideoSummary from '@/components/VideoSummary';
 import Chatbot from '@/components/Chatbot';
 import HistorySidebar from '@/components/HistorySidebar';
 import DashboardHeader from '@/components/DashboardHeader';
+import GreetingMessage from '@/components/GreetingMessage';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 
@@ -170,7 +171,7 @@ const Dashboard = () => {
               >
                 <div className="text-youlearn-gray dark:text-gray-400 text-lg mb-8">
                   <Youtube size={48} className="mx-auto mb-6 text-youlearn-blue opacity-50" />
-                  <h2 className="text-2xl md:text-3xl font-medium mb-3 text-youlearn-dark dark:text-white">Start learning with YouLearn</h2>
+                  <GreetingMessage userName="Learner" />
                   <p>Paste any YouTube video URL above to get summaries, key points, and more.</p>
                 </div>
                 

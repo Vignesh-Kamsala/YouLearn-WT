@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface DashboardHeaderProps {
   toggleSidebar: () => void;
@@ -49,8 +50,11 @@ const DashboardHeader = ({ toggleSidebar }: DashboardHeaderProps) => {
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 bg-gray-100">
-                <User size={16} />
+              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 p-0 overflow-hidden border border-gray-200 hover:bg-gray-100 hover:border-youlearn-blue transition-all duration-300">
+                <Avatar className="h-full w-full">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="User" />
+                  <AvatarFallback className="bg-youlearn-blue text-white">YL</AvatarFallback>
+                </Avatar>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
