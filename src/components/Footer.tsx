@@ -1,5 +1,6 @@
 
 import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center mb-3">
-              <div className="mr-2 text-primary text-2xl font-bold">Y</div>
+              <div className="mr-2 text-youlearn-blue text-2xl font-bold transition-transform duration-300 hover:scale-110">Y</div>
               <h3 className="font-display text-xl font-bold">
                 <span className="text-youlearn-blue">You</span>Learn
               </h3>
@@ -23,7 +24,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {['Documentation', 'Tutorials', 'Blog', 'Examples'].map(item => (
                 <li key={item}>
-                  <a href="#" className="text-youlearn-gray text-sm hover:text-youlearn-blue transition-colors duration-200">
+                  <a href="#" className="text-youlearn-gray text-sm hover:text-youlearn-blue transition-colors duration-200 block py-1">
                     {item}
                   </a>
                 </li>
@@ -36,7 +37,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {['About Us', 'Contact', 'Privacy Policy', 'Terms of Service'].map(item => (
                 <li key={item}>
-                  <a href="#" className="text-youlearn-gray text-sm hover:text-youlearn-blue transition-colors duration-200">
+                  <a href="#" className="text-youlearn-gray text-sm hover:text-youlearn-blue transition-colors duration-200 block py-1">
                     {item}
                   </a>
                 </li>
@@ -50,6 +51,8 @@ const Footer = () => {
             © 2025 YouLearn. All rights reserved.
           </p>
           <div className="flex items-center mt-4 md:mt-0">
+            <Link to="/signup" className="text-youlearn-blue text-sm font-medium hover:underline mr-6">Sign Up</Link>
+            <Link to="/login" className="text-youlearn-blue text-sm font-medium hover:underline mr-6">Log In</Link>
             <span className="text-youlearn-gray text-sm mr-2">Made with</span>
             <Heart size={14} className="text-red-500 mr-2" />
             <span className="text-youlearn-gray text-sm">by the YouLearn Team</span>

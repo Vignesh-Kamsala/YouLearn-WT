@@ -169,3 +169,34 @@ input:focus, textarea:focus, button:focus {
   width: 300%;
   height: 300%;
 }
+
+/* Enhanced floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animation-delay-200 {
+  animation-delay: 2s;
+}
+
+/* Enhanced glowing effect */
+.glow {
+  box-shadow: 0 0 15px rgba(0, 112, 243, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow:hover {
+  box-shadow: 0 0 20px rgba(0, 112, 243, 0.4);
+}

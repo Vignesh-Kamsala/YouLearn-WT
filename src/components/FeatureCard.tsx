@@ -16,9 +16,9 @@ const FeatureCard = ({ title, description, icon: Icon, delay = 0 }: FeatureCardP
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: delay * 0.2 }}
-      className="group glass-card p-6 md:p-8 hover:translate-y-[-5px]"
+      className="group glass-card p-6 md:p-8 hover:translate-y-[-5px] border border-gray-100 hover:border-youlearn-blue/20 transition-all duration-300"
     >
-      <div className="feature-card-icon">
+      <div className="feature-card-icon bg-youlearn-blue/10 text-youlearn-blue group-hover:bg-youlearn-blue/20">
         <Icon size={24} />
       </div>
       <h3 className="text-lg md:text-xl font-semibold mb-3 text-youlearn-dark group-hover:text-youlearn-blue transition-colors duration-300">
@@ -28,9 +28,9 @@ const FeatureCard = ({ title, description, icon: Icon, delay = 0 }: FeatureCardP
         {description}
       </p>
       
-      {/* Subtle interaction hover effect at bottom of card */}
-      <div className="mt-6 pt-4 border-t border-gray-100 flex items-center text-sm text-youlearn-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <span className="mr-2">Learn more</span>
+      {/* Enhanced hover effect at bottom of card */}
+      <div className="mt-6 pt-4 border-t border-gray-100 flex items-center text-sm text-youlearn-blue opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-1">
+        <span className="mr-2 font-medium">Learn more</span>
         <svg
           className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
           fill="none"

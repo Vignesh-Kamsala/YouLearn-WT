@@ -11,8 +11,10 @@ const SignUpSection = () => {
 
   return (
     <section id="signup" className="py-20 md:py-28 relative">
-      {/* Background gradient */}
+      {/* Enhanced background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-white to-blue-50/50 z-0"></div>
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-youlearn-blue/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute top-1/3 left-1/4 w-32 h-32 bg-primary/5 rounded-full filter blur-2xl"></div>
       
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -59,7 +61,7 @@ const SignUpSection = () => {
               transition={{ duration: 0.6 }}
               className="flex-1 w-full max-w-md"
             >
-              <div className="glass-card p-8 bg-white/95">
+              <div className="glass-card p-8 bg-white/95 shadow-elevation border border-gray-100 hover:border-youlearn-blue/20 transition-all duration-500">
                 <h3 className="text-xl font-semibold mb-6 text-youlearn-dark">Create your account</h3>
                 
                 <form onSubmit={(e) => {
@@ -77,7 +79,7 @@ const SignUpSection = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-youlearn-blue"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-youlearn-blue focus:ring-2 focus:ring-youlearn-blue/20 transition-all duration-200"
                         placeholder="you@example.com"
                       />
                     </div>
@@ -93,7 +95,7 @@ const SignUpSection = () => {
                           required
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-youlearn-blue"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-youlearn-blue focus:ring-2 focus:ring-youlearn-blue/20 transition-all duration-200"
                           placeholder="Create a secure password"
                         />
                         <Lock size={16} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -103,7 +105,7 @@ const SignUpSection = () => {
                     <Link to="/signup">
                       <Button 
                         type="button" 
-                        className="w-full bg-youlearn-blue hover:bg-youlearn-lightBlue text-white py-6 rounded-lg transition-all duration-300 btn-hover-animate"
+                        className="w-full bg-youlearn-blue hover:bg-youlearn-lightBlue text-white py-6 rounded-lg transition-all duration-300 btn-hover-animate shadow-md hover:shadow-lg"
                       >
                         Sign Up <ArrowRight size={16} className="ml-1" />
                       </Button>
